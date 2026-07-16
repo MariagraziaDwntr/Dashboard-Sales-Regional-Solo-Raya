@@ -346,14 +346,14 @@ def load_sellout(_mtime):
 
 
 # ---- Cek keberadaan file kembali ke asal ----
-if not os.path.exists(SELL_IN_FILE) or not os.path.exists(SELLOUT_FILE):
+if not os.path.exists("SELL_IN.parquet") or not os.path.exists("SELLOUT.parquet"):
     st.error("⚠️ File data .parquet tidak ditemukan. Pastikan SELL_IN.parquet dan SELLOUT.parquet ada.")
     st.stop()
 
 # Memanggil fungsi dengan variabel file yang sudah didefinisikan di atas
 # Memanggil fungsi pemuatan data
-df_in_raw = load_sell_in(os.path.getmtime(SELL_IN_FILE))
-df_out_raw = load_sell_out(os.path.getmtime(SELLOUT_FILE))
+df_in_raw = load_sell_in(os.path.getmtime("SELL_IN.parquet"))
+df_out_raw = load_sell_out(os.path.getmtime("SELLOUT.parquet"))
 
 # ======================================================================================
 # 5. CSS TEMA "GEN Z" (dark mode vibrant)
