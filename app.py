@@ -299,6 +299,7 @@ def growth_label(g):
 @st.cache_data(show_spinner="🔄 Memuat data Sell In...")
 def load_sell_in(_mtime):
     df = pd.read_parquet("SELL_IN.parquet")
+    st.write("Daftar kolom di SELL_IN:", df.columns.tolist())
     df = df.rename(columns={
         "order time": "Tanggal", 
         "Nama Merek": "Brand", 
@@ -344,20 +345,15 @@ def load_sellout(_mtime):
     return df
 
 
-# ---- Cek keberadaan file (Diperbarui untuk Parquet) ----
-SELL_IN_PARQUET = "SELL_IN.parquet"
-SELLOUT_PARQUET = "SELLOUT.parquet"
-
-missing = [f for f in [SELL_IN_PARQUET, SELLOUT_PARQUET] if not os.path.exists(f)]
-if missing:
-    st.error(
-        "⚠️ File data tidak ditemukan: " + ", ".join(os.path.basename(m) for m in missing) +
-        "\n\nPastikan file **SELL_IN.parquet** dan **SELLOUT.parquet** berada di folder yang sama dengan app.py."
-    )
+# ---- Cek keberadaan file kembali ke asal ----
+if not os.path.exists(SELL_IN_FILE) or not os.path.exists(SELLOUT_FILE):
+    st.error("⚠️ File data .parquet tidak ditemukan. Pastikan SELL_IN.parquet dan SELLOUT.parquet ada.")
     st.stop()
 
-df_in_raw = load_sell_in(os.path.getmtime(SELL_IN_PARQUET))
-df_out_raw = load_sellout(os.path.getmtime(SELLOUT_PARQUET))
+# Memanggil fungsi dengan variabel file yang sudah didefinisikan di atas
+# Memanggil fungsi pemuatan data
+df_in_raw = load_sell_in(os.path.getmtime(SELL_IN_FILE))
+df_out_raw = load_sell_out(os.path.getmtime(SELLOUT_FILE))
 
 # ======================================================================================
 # 5. CSS TEMA "GEN Z" (dark mode vibrant)
