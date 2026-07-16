@@ -344,17 +344,20 @@ def load_sellout(_mtime):
     return df
 
 
-# ---- Cek keberadaan file ----
-missing = [f for f in [SELL_IN_FILE, SELLOUT_FILE] if not os.path.exists(f)]
+# ---- Cek keberadaan file (Diperbarui untuk Parquet) ----
+SELL_IN_PARQUET = "SELL_IN.parquet"
+SELLOUT_PARQUET = "SELLOUT.parquet"
+
+missing = [f for f in [SELL_IN_PARQUET, SELLOUT_PARQUET] if not os.path.exists(f)]
 if missing:
     st.error(
         "⚠️ File data tidak ditemukan: " + ", ".join(os.path.basename(m) for m in missing) +
-        "\n\nPastikan file **SELL_IN.xlsx** dan **SELLOUT.xlsx** berada di folder yang sama dengan app.py."
+        "\n\nPastikan file **SELL_IN.parquet** dan **SELLOUT.parquet** berada di folder yang sama dengan app.py."
     )
     st.stop()
 
-df_in_raw = load_sell_in(os.path.getmtime(SELL_IN_FILE))
-df_out_raw = load_sellout(os.path.getmtime(SELLOUT_FILE))
+df_in_raw = load_sell_in(os.path.getmtime(SELL_IN_PARQUET))
+df_out_raw = load_sellout(os.path.getmtime(SELLOUT_PARQUET))
 
 # ======================================================================================
 # 5. CSS TEMA "GEN Z" (dark mode vibrant)
