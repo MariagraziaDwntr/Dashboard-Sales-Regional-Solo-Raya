@@ -355,7 +355,7 @@ if not os.path.exists("SELL_IN.parquet") or not os.path.exists("SELLOUT.parquet"
 # Memanggil fungsi dengan variabel file yang sudah didefinisikan di atas
 # Memanggil fungsi pemuatan data
 df_in_raw = load_sell_in(os.path.getmtime("SELL_IN.parquet"))
-df_out_raw = load_sell_out(os.path.getmtime("SELLOUT.parquet"))
+df_out_raw = load_sellout(os.path.getmtime("SELLOUT.parquet"))
 
 # ======================================================================================
 # 5. CSS TEMA "GEN Z" (dark mode vibrant)
