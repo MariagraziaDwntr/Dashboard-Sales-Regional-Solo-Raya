@@ -329,11 +329,18 @@ def load_sell_in(_mtime):
 def load_sellout(_mtime):
     df = pd.read_parquet("SELLOUT.parquet")
     df = df.rename(columns={
-        "Date": "Tanggal", "Nama Merek": "Brand", "Sales Amount": "Amount",
-        "Customer Name": "Customer", "Store Name": "Store", "Business Personnel": "BP",
-        "Nama Bahan": "Product", "Nama Seri": "CategoryRaw", "Sales": "Qty",
+        "Store Name": "Store",
+        "Quantity": "Qty",
+        "Amount(Rp)": "Amount"
     })
-    df["Tanggal"] = pd.to_datetime(df["Tanggal"], errors="coerce")
+    
+    # Tambahkan kolom dummy agar dashboard tidak error
+    df["Tanggal"] = pd.to_datetime("2026-01-01")
+    df["BP"] = "Unknown"
+    df["Brand"] = "Lainnya"
+    df["Product"] = "Unknown"
+    df["Customer"] = "Unknown"
+    df["CategoryRaw"] = "Unknown"
     df = df.dropna(subset=["Tanggal"]).copy()
     df["Year"] = df["Tanggal"].dt.year
     df["Month"] = df["Tanggal"].dt.month
