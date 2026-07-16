@@ -300,9 +300,14 @@ def growth_label(g):
 def load_sell_in(_mtime):
    df = pd.read_parquet("SELL_IN.parquet")
     df = df.rename(columns={
-        "order time": "Tanggal", "Nama Merek": "Brand", "Amount(Rp)": "Amount",
-        "Customer": "Customer", "Store Name": "Store", "Business Personnel": "BP",
-        "product name": "Product", "Quantity": "Qty",
+        "order time": "Tanggal",
+        "Nama Merek": "Brand",
+        "Amount(Rp)": "Amount",
+        "Customer": "Customer",
+        "Store Name": "Store",
+        "Business Personnel": "BP",
+        "product name": "Product",
+        "Quantity": "Qty",
     })
     df["Tanggal"] = pd.to_datetime(df["Tanggal"], errors="coerce")
     df = df.dropna(subset=["Tanggal"]).copy()
