@@ -448,13 +448,8 @@ sel_brands = st.sidebar.multiselect("🏷️ Brand", all_brands, default=all_bra
 sel_sales = st.sidebar.multiselect("🧑‍💼 Sales", SALES_LIST, default=SALES_LIST)
 
 st.sidebar.markdown("---")
-st.sidebar.caption(
-    f"📁 SELL_IN.parquet — update terakhir: {datetime.fromtimestamp(os.path.getmtime(SELL_IN_FILE)):%d %b %Y %H:%M}"
-)
-st.sidebar.caption(
-    f"📁 SELLOUT.parquet — update terakhir: {datetime.fromtimestamp(os.path.getmtime(SELLOUT_FILE)):%d %b %Y %H:%M}"
-)
-
+st.sidebar.caption(f"💾 SELL_IN.parquet - update terakhir: {datetime.fromtimestamp(os.path.getmtime('SELL_IN.parquet')):%d %b %Y %H:%M}")
+st.sidebar.caption(f"💾 SELLOUT.parquet - update terakhir: {datetime.fromtimestamp(os.path.getmtime('SELLOUT.parquet')):%d %b %Y %H:%M}")
 if not sel_brands:
     sel_brands = all_brands
 if not sel_sales:
