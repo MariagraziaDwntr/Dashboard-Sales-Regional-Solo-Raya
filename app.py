@@ -576,7 +576,7 @@ with tabs[1]:
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("#### 🌸 Liza")
-        st.plotly_chart(quarterly_chart("Liza"), use_container_width=True)
+        st.plotly_chart(quarterly_chart("Liza"), use_container_width=True, key="quarterly_chart_liza_unique")
         st.metric("Total Sell In (Kuartal)", format_short(df_in_bs[(df_in_bs.Year == sel_year) & (df_in_bs.Sales == "Liza") & (df_in_bs.Quarter == sel_quarter)]["Amount"].sum()))
     with c2:
         st.markdown("#### 🌊 Yoga")
@@ -584,7 +584,7 @@ with tabs[1]:
         st.metric("Total Sell In (Kuartal)", format_short(df_in_bs[(df_in_bs.Year == sel_year) & (df_in_bs.Sales == "Yoga") & (df_in_bs.Quarter == sel_quarter)]["Amount"].sum()))
     with c3:
         st.markdown("#### 🔮 Fanny")
-        st.plotly_chart(quarterly_chart("Fanny"), use_container_width=True)
+        st.plotly_chart(quarterly_chart("Fanny"), use_container_width=True, key="quarterly_chart_fanny_unique")
         st.metric("Total Sell In (Kuartal)", format_short(df_in_bs[(df_in_bs.Year == sel_year) & (df_in_bs.Sales == "Fanny") & (df_in_bs.Quarter == sel_quarter)]["Amount"].sum()))
 
 
