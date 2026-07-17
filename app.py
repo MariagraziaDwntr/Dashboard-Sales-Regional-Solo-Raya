@@ -299,19 +299,22 @@ def growth_label(g):
 @st.cache_data(show_spinner="🔄 Memuat data Sell In...")
 def load_sell_in(_mtime):
     df = pd.read_parquet("SELL_IN.parquet")
-    # Ganti nama kolom sesuai dengan file yang ditemukan
+    
+    # Menyesuaikan nama kolom dari Sheet 2
     df = df.rename(columns={
+        "order time": "Tanggal",
+        "Nama Merek": "Brand",
+        "Business Personnel": "BP",
         "Store Name": "Store",
         "Quantity": "Qty",
         "Amount(Rp)": "Amount"
     })
     
-    # Menambahkan kolom "Tanggal" dummy agar kode selanjutnya tidak error
-    df["Tanggal"] = pd.to_datetime("2026-01-01")
-    df["BP"] = "Unknown"
-    df["Brand"] = "Lainnya"
-    df["Product"] = "Unknown"
-    df["Customer"] = "Unknown"
+    # Pastikan kolom-kolom ini ada
+    for col in ["Tanggal", "BP", "Brand", "Product", "Customer"]:
+        if col not in df.columns:
+            df[col] = "Unknown" if col != "Tanggal" else pd.to_datetime("2026-01-01")
+            
     df["Tanggal"] = pd.to_datetime(df["Tanggal"], errors="coerce")
     df = df.dropna(subset=["Tanggal"]).copy()
     df["Year"] = df["Tanggal"].dt.year
